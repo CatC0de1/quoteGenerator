@@ -3,7 +3,7 @@
 // import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import QuoteCard from "../components/QuoteCard";
+import QuoteCard from "@/components/QuoteCard";
 
 type Quote = {
   content: string;
