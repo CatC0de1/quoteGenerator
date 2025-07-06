@@ -1,7 +1,8 @@
 "use client";
 
 // import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import QuoteCard from "../components/QuoteCard";
 
 type Quote = {
@@ -11,7 +12,7 @@ type Quote = {
 
 export default function Home() {
   const [quote, setQuote] = useState<Quote | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetchQuote = async () => {
     try {
@@ -28,18 +29,16 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchQuote();
-  }, []);
-
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="max-w-xl w-full text-center">
-        {loading || !quote ? (
-          <p className="text-lg font-medium">Loading...</p>
-        ) : (
-          <QuoteCard quote={quote} onNewQuote={fetchQuote} />
-        )}
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          <QuoteCard quote={quote} onNewQuote={fetchQuote} loading={loading} />
+        </motion.div>
       </div>
     </main>
   );
